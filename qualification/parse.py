@@ -26,6 +26,16 @@ class Project:
             repr += f"\t{skill} with level {level} required\n"
         return repr
 
+class Graph:
+    def __init__(self, project, contributors):
+        self.roles = project.skills.items()
+        self.fulfilled = dict()
+        self.can_learn = dict()
+
+        for contributor in contributors:
+            pass
+
+
 def parse(filename):
     with open(filename) as input_file:
         line = input_file.readline().rstrip('\n').split(' ')
@@ -63,19 +73,13 @@ def parse(filename):
                 skills[line[0]] = int(line[1])
 
             projects.append(Project(name, skills, days, score, bb))
+
     return projects, contributors
 
 def schedule(projects, contributors):
     schedule = dict()
-    for project in projects:
-        current_contributors = set(contributors)
-        schedule[project.name] = list()
-        for skill, requirement in project.skills.items():
-            for contributor in current_contributors:
-                if contributor.skills[skill] >= requirement and not contributor.name in schedule[project.name]:
-                    schedule[project.name].append(contributor.name)
-    return schedule
-                    
+
+
 if __name__ == "__main__":
     projects, contributors = parse("a_an_example.in.txt")
     s = schedule(projects, contributors)
