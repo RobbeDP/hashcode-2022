@@ -14,11 +14,11 @@ class Contributor:
 
 class Project:
     def __init__(self, name, skills, days, score, bb):
-        self.name = name
-        self.skills = skills
-        self.days = days
-        self.score = score
-        self.bb = bb
+        self.name = name #str
+        self.skills = skills # dict {skill name: skill level}
+        self.days = days # int
+        self.score = score # int
+        self.bb = bb # int
 
     def __repr__(self):
         repr = f"Project '{self.name}' with {len(self.skills)} role{'s' if len(self.skills) != 1 else ''}:\n" 
