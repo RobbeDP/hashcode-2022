@@ -1,5 +1,5 @@
 from collections import defaultdict
-
+from unparse import write_output
 
 class Contributor:
     def __init__(self, name, skills):
@@ -69,16 +69,17 @@ def schedule(projects, contributors):
     schedule = dict()
     for project in projects:
         current_contributors = set(contributors)
-        schedule[project.name] = dict()
+        schedule[project.name] = list()
         for skill, requirement in project.skills.items():
             for contributor in current_contributors:
-                if contributor.skills[skill] >= requirement and not contributor.name in schedule[project.name].values():
-                    schedule[project.name][skill] = contributor.name
-                    
+                if contributor.skills[skill] >= requirement and not contributor.name in schedule[project.name]:
+                    schedule[project.name].append(contributor.name)
     return schedule
                     
 if __name__ == "__main__":
     projects, contributors = parse("a_an_example.in.txt")
     s = schedule(projects, contributors)
-    for project, assignments in s.items():
-        print(f"Project {project}: {', '.join(assignments.values())}")
+    # for project, assignments in s.items():
+    #     print(f"Project {project}: {', '.join(assignments.values())}")
+    write_output(s)
+
